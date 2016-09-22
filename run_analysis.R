@@ -37,5 +37,8 @@ mainfunciton <- function(){
     #select only the mean and std columns
     xycombinedsubset <- select(xycombined, subject, activity, grep("[Mm]ean|[Ss]td", names(xycombined)))
     
-    return(xycombinedsubset)
+    #create the mean file
+    summarydf <- xycombinedsubset %>% group_by(subject, activity) %>% summarise_each(funs(mean))
+    
+    return(summarydf)
 }
