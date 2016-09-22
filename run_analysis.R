@@ -24,7 +24,11 @@ mainfunciton <- function(){
     xytest <- cbind(subject = subtest$V1, xytest)
     
     #add the data tables together
-    xycombined <- rbind(xytrain, xytest)    
+    xycombined <- rbind(xytrain, xytest)
+    
+    #add the activity labels
+    names(activitylabels) <- c("activityid", "activity")
+    xycombined <- merge(activitylabels, xycombined, by.x = "activityid", by.y = "activityid")
     
     return(xycombined)
 }
