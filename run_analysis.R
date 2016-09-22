@@ -27,12 +27,15 @@ mainfunciton <- function(){
     xycombined <- rbind(xytrain, xytest)
     
     #change the levels of activityif to be the activity name
-    xycombined$activityid <- as.factor(xycombined$activityid)
-    levels(xycombined$activityid) <- activitylabels$V2
+    xycombined$activity <- as.factor(xycombined$activity)
+    levels(xycombined$activity) <- activitylabels$V2
     #old way
     #add the activity labels
     #names(activitylabels) <- c("activityid", "activity")
     #xycombined <- merge(activitylabels, xycombined, by.x = "activityid", by.y = "activityid")
     
-    return(xycombined)
+    #select only the mean and std columns
+    xycombinedsubset <- select(xycombined, subject, activity, grep("[Mm]ean|[Ss]td", names(xycombined)))
+    
+    return(xycombinedsubset)
 }
