@@ -16,8 +16,8 @@ mainfunciton <- function(){
     names(xtest) <- featurelabels
     
     #cbind the xy for each
-    xytrain <- cbind(activityid = ytrain$V1, xtrain)
-    xytest <- cbind(activityid = ytest$V1, xtest)
+    xytrain <- cbind(activity = ytrain$V1, xtrain)
+    xytest <- cbind(activity = ytest$V1, xtest)
     
     #cbind the subject
     xytrain <- cbind(subject = subtrain$V1, xytrain)
@@ -26,9 +26,13 @@ mainfunciton <- function(){
     #add the data tables together
     xycombined <- rbind(xytrain, xytest)
     
+    #change the levels of activityif to be the activity name
+    xycombined$activityid <- as.factor(xycombined$activityid)
+    levels(xycombined$activityid) <- activitylabels$V2
+    #old way
     #add the activity labels
-    names(activitylabels) <- c("activityid", "activity")
-    xycombined <- merge(activitylabels, xycombined, by.x = "activityid", by.y = "activityid")
+    #names(activitylabels) <- c("activityid", "activity")
+    #xycombined <- merge(activitylabels, xycombined, by.x = "activityid", by.y = "activityid")
     
     return(xycombined)
 }
