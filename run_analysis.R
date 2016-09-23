@@ -1,5 +1,21 @@
 mainfunciton <- function(){
     
+    # Prepare Libraries
+    
+    if(require("dplyr")){
+        print("dplyr is loaded")
+    } else {
+        print("attempting to install dplyr")
+        install.packages("dplyr")
+        if(require(dplyr)){
+            print("dplyr was installed and loaded correctly")
+        } else {
+            stop("could not install required packages (dplyr)")
+        }
+    }
+    
+    
+    
     xtrain <- read.table("./UCI HAR Dataset/train/x_train.txt")
     ytrain <- read.table("./UCI HAR Dataset/train/y_train.txt")
     subtrain <- read.table("./UCI HAR Dataset/train/subject_train.txt")
@@ -11,6 +27,9 @@ mainfunciton <- function(){
 
     #make the names unique
     featurelabels <- make.unique(features$V2)
+    
+    
+    
     #add the column labels
     names(xtrain) <- featurelabels
     names(xtest) <- featurelabels
@@ -28,7 +47,11 @@ mainfunciton <- function(){
     
     #change the levels of activityif to be the activity name
     xycombined$activity <- as.factor(xycombined$activity)
-    levels(xycombined$activity) <- activitylabels$V2
+    
+    #make the activity name lowercase and remove the underscore
+    activities <- gsub("_", "", tolower(activitylabels$V2))
+    
+    levels(xycombined$activity) <- activities
     #old way
     #add the activity labels
     #names(activitylabels) <- c("activityid", "activity")
@@ -39,6 +62,8 @@ mainfunciton <- function(){
     
     #create the mean file
     summarydf <- xycombinedsubset %>% group_by(subject, activity) %>% summarise_each(funs(mean))
+    
+    
     
     return(summarydf)
 }
