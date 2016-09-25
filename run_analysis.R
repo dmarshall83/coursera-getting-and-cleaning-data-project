@@ -20,9 +20,9 @@ runAnalysis <- function(){
     tidySummaryData <- createSummaryDataset(combinedDataset)
     
     #write the file to uci-har-means-tidy.txt
-    write.csv(summary, "uci-har-means-tidy.csv", row.names = FALSE)
-    writeLines(paste0("Tidy summary file has been saved to ", getwd(), "/uci-har-means-tidy.csv"))
-    writeLines("To view the file run: \ndata <- read.csv('uci-har-means-tidy.csv')\nView(data)")
+    write.table(summary, "uci-har-means-tidy.txt", row.names = FALSE)
+    writeLines(paste0("Tidy summary file has been saved to ", getwd(), "/uci-har-means-tidy.txt"))
+    writeLines("To view the file run: \ndata <- read.table('uci-har-means-tidy.txt', header = TRUE)\nView(data)")
     
 }
 createSummaryDataset <- function(dataset){

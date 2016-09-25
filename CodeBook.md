@@ -1,5 +1,5 @@
 #Code Book
-This code book is for the uci-har-means-tidy.csv dataset
+This code book is for the uci-har-means-tidy.txt dataset
 
 ##Original Data Source
 The original source for the data in this dataset came from the study "Human Activity Recognition Using Smartphones Data Set". A description of the study and relevant files can be found at: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones

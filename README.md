@@ -2,9 +2,9 @@
 The R script `run_analysis.R` was created to gather data, clean data, and created a tidy summary dataset of the UCI HAR Dataset. `run_analysis.R` contians the following functions:
 
 * ###runAnalysis 
-This function is a wrapper to run all necessary functions start to finish and write the tidy summary dataset to uci-har-means-tidy.csv. To view the output run the following code:
+This function is a wrapper to run all necessary functions start to finish and write the tidy summary dataset to uci-har-means-tidy.txt. To view the output run the following code:
     
-    `data <- read.csv('uci-har-means-tidy.csv')`
+    `data <- read.table('uci-har-means-tidy.txt', header = TRUE)`
     
     `View(data)`
 
