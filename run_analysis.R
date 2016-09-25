@@ -1,3 +1,21 @@
+getData <- function(){
+    #check to see if the file already exists and exit download
+    if(file.exists("UCI HAR Dataset")){
+        print("UCI HAR Dataset located in working directory.")
+    }else{
+        download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", "dataset.zip")
+        unzip("dataset.zip")
+        file.remove("dataset.zip")
+        print(paste0("UCI HAR Dataset downloaded and saved to ",  getwd(), "/UCI HAR Dataset"))
+    }
+}
+
+lookForFile <- function(){
+    if(file.exists("UCI HAR Dataset")){
+        print("UIC HAR Dataset located in working directory.")
+    }
+}
+
 mainfunciton <- function(){
     
     # Prepare Libraries
@@ -63,7 +81,14 @@ mainfunciton <- function(){
     #create the mean file
     summarydf <- xycombinedsubset %>% group_by(subject, activity) %>% summarise_each(funs(mean))
     
+    #make tidy names
+    tidynames <- names(summarydf)
+    tidynames <- gsub("-mean", "Mean",tidynames)
+    tidynames <- gsub("-std", "Std",tidynames)
+    tidynames <- gsub("\\(\\)-|\\(\\)", "",tidynames)
+    tidynames <- gsub("BodyBody", "Body",tidynames)
     
+    names(summarydf) <- tidynames
     
     return(summarydf)
 }
